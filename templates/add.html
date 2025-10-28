@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <title>Add Company</title>
+   <style>
+    body { font-family: arial, sans-serif; text-align: center;}
+    form { display: inline-block; text-align: left; margin-top: 30px;}
+    label, input { display: block; width: 300px; margin-top: 8px;}
+    button { margin-top: 15px; padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;}
+    button { background-color: #0056b3;}
+    a { display: block; margin-top: 20px; text-decoration: none; color: #007bff;}
+   </style>
+</head>
+<body>
+    <h1>Add New Company</h1>
+    <form method="POST">
+        <label>BN:</label>
+        <input type="text" name="BN" required>
+
+        <label>Team:</label>
+        <input type="text" name="Team">
+
+        <label>Company Name:</label>
+        <input type="text" name="Company_Name">
+
+        <label>Owner Name:</label>
+        <input type="text" name="Owner_Name">
+
+        <label>YE:</label>
+        <input type="text" name="YE">
+
+        <lable>GST:</lable>
+        <input type="text" name="GST">
+
+        <label>BK:</label>    
+        <input type="text" name="BK">
+
+        <label>Status:</label>
+        <input type="text" name="Status">
+
+        <button type="submit">Add Company</button>
+    </form>
+    <a href="/">Back to Dashboard</a>
+</body>
+</html>

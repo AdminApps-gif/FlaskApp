@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Office Dashboard</title>
+        <style>
+            table {border-collapse: collapse; width: 80%; margin: 20px auto; }
+            th, td {border: 1px solid #999; padding: 8px; text-align: center;}
+            th { background-color: #f4f4f4;}
+            body { font-family: Arial, sans-serif; text-align: center;}
+            .add-btn {
+                display: inline-block;
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                margin-bottom: 20px;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            .add-btn:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Office Dashboard Data</h1>
+        <a href="/add" class="add-btn">+ Add New Company</a>
+        <table>
+            <tr>
+                <th> BN</th>
+                <th>Team</th>
+                <th>Company Name</th>
+                <th>Owner Name</th>
+                <th>YE</th>
+                <th>GST</th>
+                <th>BK</th>
+                <th>Status</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row['BN'] }}</td>
+                <td>{{ row['Team'] }}</td>
+                <td>{{ row['Company_Name'] }}</td>
+                <td>{{ row['Owner_Name'] }}</td>
+                <td>{{ row['YE'] }}</td>
+                <td>{{ row['GST'] }}</td>
+                <td>{{ row['BK'] }}</td>
+                <td>{{ row['Status'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
