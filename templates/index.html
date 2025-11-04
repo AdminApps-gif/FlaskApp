@@ -1,30 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Office Dashboard</title>
+        <meta charset="UYF-8">
+        <title>Office Dashboard Data</title>
         <style>
-            table {border-collapse: collapse; width: 80%; margin: 20px auto; }
-            th, td {border: 1px solid #999; padding: 8px; text-align: center;}
-            th { background-color: #f4f4f4;}
-            body { font-family: Arial, sans-serif; text-align: center;}
+            body { 
+                font-family: Arial, sans-serif; 
+                padding: 30px;
+                background: #f7f9fc;
+            }
+            h2 {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 20px;
+            }
             .add-btn {
-                display: inline-block;
+                display:inline-block; /* add border to our buttom*/
+                margin: 20px auto ;
                 background-color: #007bff;
                 color: white;
+                border: none;
                 padding: 10px 20px;
-                margin-bottom: 20px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
                 text-decoration: none;
-                border-radius: 5px;
+                border-radius: 6px;
+                width: auto; /* Adjust width as needed */
             }
             .add-btn:hover {
                 background-color: #0056b3;
             }
+            table {
+                border-collapse: collapse; 
+                width: 100%; 
+                background: white; 
+            }
+            th, td {
+                border: 1px solid #ccc; 
+                padding: 8px; 
+                text-align: center;
+            }
+            th {
+                background-color: #f4f4f4;
+                color: rgb(0, 0, 0);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+    /* === Обёртка для select, чтобы убрать серый фон браузера === */
+    .select-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 6px;
+    overflow: hidden;
+    }
+
+    /* Сбрасываем системные стили, но сохраняем фон из класса */
+    .select-wrapper select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    border: 1px solid #1d1919;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: none !important;
+    outline: none !important;
+    }
+
+    /* Отключаем серый фон при наведении и фокусе */
+    .select-wrapper select:hover,
+    .select-wrapper select:focus,
+    .select-wrapper select:active {
+    background-color: inherit !important;
+    color: inherit !important;
+    outline: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    }
+
+    /* === Цвета самих select === */
+    select.team1 { background-color: #007bff; color: white; }
+    select.team2 { background-color: #ffe066; color: black; }
+    select.team3 { background-color: #c77dff; color: black; }
+    select.nicholas { background-color: green; color: white; }
+
+    select.active { background-color: #9bf59b; color: black; }
+    select.closed { background-color: #ff6b6b; color: white; }
+    select.left { background-color: #a80202; color: rgb(255, 255, 255); }
+
+    select.ye { background-color: #eaf7ff; color: #003366; }
+    select.gst { background-color: #d6ecff; color: #003366; }
+
+    /* === Цвета опций внутри списка === */
+    option.team1 { background-color: #007bff; color: white; }
+    option.team2 { background-color: #ffe066; color: black; }
+    option.team3 { background-color: #c77dff; color: black; }
+    option.nicholas { background-color: green; color: white; }
+
+    option.active { background-color: #9bf59b; color: black; }
+    option.closed { background-color: #ff6b6b; color: white; }
+    option.left { background-color: #a80202; color: rgb(255, 255, 255); }
+
+    option.ye { background-color: #eaf7ff; color: #003366; }
+    option.gst { background-color: #d6ecff; color: #003366; }
         </style>
     </head>
     <body>
-        <h1>Office Dashboard Data</h1>
+
+        <h2>Office Dashboard Data</h2>
+        <div style="text-align: center;">
         <a href="/add" class="add-btn">+ Add New Company</a>
+        </div>
         <table>
+            <thead>
             <tr>
                 <th> BN</th>
                 <th>Team</th>
@@ -35,18 +126,122 @@
                 <th>BK</th>
                 <th>Status</th>
             </tr>
+            </thead>
+
+            <tbody>
             {% for row in data %}
             <tr>
                 <td>{{ row['BN'] }}</td>
-                <td>{{ row['Team'] }}</td>
+
+                <!--TEAM-->
+                <td>
+                <div class="select-wrapper">
+                    <select onchange="updateColor(this)">
+                        <option class="team1" {% if row['Team'] == 'Team 1' %}selected{% endif %}>Team1</option>
+                        <option class="team2" {% if row['Team'] == 'Team 2' %}selected{% endif %}>Team2</option>
+                        <option class="team3" {% if row['Team'] == 'Team 3' %}selected{% endif %}>Team3</option>
+                        <option class="nicholas" {% if row['Team'] == 'Nicholas' %}selected{% endif %}>Nicholas</option>
+                    </select>
+                </div>
+                </td>
+                
                 <td>{{ row['Company_Name'] }}</td>
                 <td>{{ row['Owner_Name'] }}</td>
-                <td>{{ row['YE'] }}</td>
-                <td>{{ row['GST'] }}</td>
-                <td>{{ row['BK'] }}</td>
-                <td>{{ row['Status'] }}</td>
+
+                <!--YE-->
+                <td>
+                <div class ="select-wrapper">
+                <select onchange="updateColor(this)">
+                {% for m in ["01 (Jan)", "02 (Feb)", "03 (Mar)", "04 (Apr)", "05 (May)", "06 (Jun)", "07 (Jul)", "08 (Aug)", "09 (Sep)", "10 (Oct)", "11 (Nov)", "11 (Dec)" ] %}
+                    <option class="ye" {% if row['YE'] == m %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+                    </select>
+                </div>
+                </td>
+
+                <!--GST-->
+                <td>
+                <div class ="select-wrapper">
+                <select onchange="updateColor(this)">
+                {% for m in ["01 (Jan)", "02 (Feb)", "03 (Mar)", "04 (Apr)", "05 (May)", "06 (Jun)", "07 (Jul)", "08 (Aug)", "09 (Sep)", "10 (Oct)", "11 (Nov)", "11 (Dec)", "Quarterly - 1/4/7/10", "Quarterly - 3/6/9/12" ] %}
+                    <option class="gst" {% if row['GST'] == m %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+                    </select>
+                </div>
+                </td>
+
+                <!--BK-->
+                <td>
+                <div class ="select-wrapper">
+                <select onchange="updateColor(this)">
+                    {% for bk_option in ["Monthly", "Quarterly", "Semi-annual", "Annually"] %}
+                        <option class="{{ bk_opion|lower|replace(' ','') }}"
+                        {% if row['BK'] == bk_option %}selected{% endif %}>
+                        {{ bk_option }}
+                        </option>
+                    {% endfor %}
+                    </select>
+                </div>
+                </td>
+
+                <!--STATUS-->
+                <td>
+                <div class ="select-wrapper">
+                    <select onchange="updateColor(this)">
+                        <option class="active" {% if row['Status'] == 'Active' %}selected{% endif %}>Active</option>
+                        <option class="closed" {% if row['Status'] == 'Closed' %}selected{% endif %}>Closed</option>
+                        <option class="left" {% if row['Status'] == 'Left' %}selected{% endif %}>Left</option>
+                    </select>
+                </div>
+                </td>
             </tr>
             {% endfor %}
         </table>
+
+       <script>
+            function updateColor(selectElement) {
+  // Убираем старые классы
+            selectElement.className = "";
+
+  // Получаем значение
+            const value = selectElement.value.toLowerCase().replace(/\s+/g, '');
+
+  // Определяем индекс колонки и её заголовок
+            const cellIndex = selectElement.closest('td').cellIndex;
+            const headerText = document.querySelector('table thead tr').children[cellIndex].innerText;
+
+  // Применяем цвет в зависимости от значения
+            if (value.includes('team1')) selectElement.classList.add('team1');
+            else if (value.includes('team2')) selectElement.classList.add('team2');
+            else if (value.includes('team3')) selectElement.classList.add('team3');
+            else if (value.includes('nicholas')) selectElement.classList.add('nicholas');
+            else if (value.includes('active')) selectElement.classList.add('active');
+            else if (value.includes('closed')) selectElement.classList.add('closed');
+            else if (value.includes('left')) selectElement.classList.add('left');
+            else if (value.includes('monthly')) selectElement.classList.add('monthly');
+            else if (value.includes('quarterly')) selectElement.classList.add('quarterly');
+            else if (value.includes('semi-annual')) selectElement.classList.add('semi-annual');
+            else if (value.includes('annually')) selectElement.classList.add('annually');
+
+  // Проверяем, если это колонка YE или GST
+            if (headerText.includes('YE')) selectElement.classList.add('ye');
+            else if (headerText.includes('GST')) selectElement.classList.add('gst');
+            }
+
+        // Запускаем для всех select при загрузке страницы
+             document.querySelectorAll('select').forEach(select => {
+                 updateColor(select);
+                document.querySelectorAll('select').forEach(select => {
+                // Применяем цвета сразу при загрузке страницы
+                updateColor(select);
+
+                // Обновляем цвет при изменении значения
+                select.addEventListener('change', function() {
+                    updateColor(this);
+                    this.blur(); // снимаем фокус, чтобы браузер мгновенно обновил стиль
+                });
+            });
+             });
+        </script>
     </body>
 </html>

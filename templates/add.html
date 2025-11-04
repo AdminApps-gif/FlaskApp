@@ -3,12 +3,28 @@
 <head>
     <title>Add Company</title>
    <style>
-    body { font-family: arial, sans-serif; text-align: center;}
+    body { font-family: arial, sans-serif; text-align: center; margin-top: 30px;}
     form { display: inline-block; text-align: left; margin-top: 30px;}
-    label, input { display: block; width: 300px; margin-top: 8px;}
+    label, input { display: block; width: 300px; margin-bottom: 12px; font-size: 15px; padding: 6px;}
     button { margin-top: 15px; padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;}
-    button { background-color: #0056b3;}
     a { display: block; margin-top: 20px; text-decoration: none; color: #007bff;}
+    .team1 { background-color: #007bff; color: white; }
+    .team2 { background-color: #ffe066; color: black; }
+    .team3 { background-color: #cdb4db; color: black; }
+    .nicholas { background-color: green; color: white; }
+
+    .active { background-color: #9bf59b; color: black; }
+    .closed { background-color: #ff6b6b; color: white; }
+    .left { background-color: #c2c2c2; color: black; }
+
+    .ye { background-color: #eaf7ff; color: #003366; border: 1px solid #a8d1ff; }
+    .gst { background-color: #dde6ff; color: #003366; border: 1px solid #a8d1ff; }
+
+    .monthly { background-color: #f5f5f5; }
+    .quarterly { background-color: #fff0f0; }
+    .semi-annual { background-color: #f0f8ff; }
+    .annually { background-color: #fdf6e3; }
+    select:hover, select:focus { filter:none !important; background-color:inherit !important;}
    </style>
 </head>
 <body>
@@ -18,7 +34,12 @@
         <input type="text" name="BN" required>
 
         <label>Team:</label>
-        <input type="text" name="Team">
+        <select name="Team" onchange="updateColor(this)">
+        <option value="Team1">Team1</option>
+        <option value="Team2">Team2</option>
+        <option value="Team3">Team3</option>
+        <option value="Nicholas">Nicholas</option>
+        </select>
 
         <label>Company Name:</label>
         <input type="text" name="Company_Name">
@@ -27,16 +48,32 @@
         <input type="text" name="Owner_Name">
 
         <label>YE:</label>
-        <input type="text" name="YE">
+        <select name="YE" onchange="updateColor(this)">
+            {% for m in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+                <option value="{{ m }}">{{ m }}</option>
+            {% endfor %}
+        </select>
 
-        <lable>GST:</lable>
-        <input type="text" name="GST">
+        <label>GST:</label>
+        <select name="GST" onchange="updateColor(this)">
+            {% for m in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December','Quarterly - 1/4/7/10', 'Quarterly - 3/6/9/12'] %}
+                <option value="{{ m }}">{{ m }}</option>
+            {% endfor %}
+        </select>
 
         <label>BK:</label>    
-        <input type="text" name="BK">
-
+        <select name="BK" onchange="updateColor(this)">
+            {% for freq in ['Monthly', 'Quarterly', 'Semi-Annual', 'Annually'] %}
+                <option value="{{ freq }}">{{ freq }}</option>
+            {% endfor %}
+        </select>
+        
         <label>Status:</label>
-        <input type="text" name="Status">
+        <select name="Status" onchange="updateColor(this)">
+            <option value="Active">Active</option>
+            <option value="Closed">Closed</option>
+            <option value="Left">Left</option>
+        </select>
 
         <button type="submit">Add Company</button>
     </form>
